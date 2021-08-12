@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:movie_lister/models/movie.dart';
 
@@ -18,10 +21,13 @@ class UpdateMovieForm extends StatefulWidget {
 
 class _UpdateMovieFormState extends State<UpdateMovieForm> {
   final _movieFormKey = GlobalKey<FormState>();
-
+  var _image;
+  var imagePicker;
+  late XFile image;
   late final _nameController;
   late final _directorController;
   late final Box box;
+  bool picChange=false;
 
   String? _fieldValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -35,6 +41,7 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
     Movie newMovie = Movie(
       name: _nameController.text,
       director: _directorController.text,
+      image: picChange==true?image.path:widget.movie.image,
     );
 
     box.putAt(widget.index, newMovie);
@@ -47,8 +54,10 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
     super.initState();
     // Get reference to an already opened box
     box = Hive.box('movieBox');
+    imagePicker = new ImagePicker();
     _nameController = TextEditingController(text: widget.movie.name);
     _directorController = TextEditingController(text: widget.movie.director);
+    _image = File(widget.movie.image);
   }
 
   @override
@@ -68,6 +77,42 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
           TextFormField(
             controller: _directorController,
             validator: _fieldValidator,
+          ),
+          Spacer(),
+          Center(
+            child: GestureDetector(
+              onTap: () async {
+                picChange = true;
+                image = await imagePicker.pickImage(
+                    source: ImageSource.gallery, imageQuality: 50);
+                setState(() {
+                  _image = File(image.path);
+                });
+              },
+              child: Container(
+                width: 250,
+                height: 250,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor),
+                child: _image != null
+                    ? Image.file(
+                  _image,
+                  width: 250.0,
+                  height: 250.0,
+                  fit: BoxFit.fitHeight,
+                )
+                    : Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor),
+                  width: 250,
+                  height: 250,
+                  child: Icon(
+                    Icons.camera_alt,
+                    color: Colors.grey[800],
+                  ),
+                ),
+              ),
+            ),
           ),
           Spacer(),
           Padding(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:movie_lister/screens/update_screen.dart';
@@ -64,6 +66,10 @@ class _InfoScreenState extends State<InfoScreen> {
                     ),
                   ),
                   child: ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      child: Image.file(File(movieData.image))
+                    ),
                     title: Text(movieData.name),
                     subtitle: Text(movieData.director),
                     trailing: IconButton(

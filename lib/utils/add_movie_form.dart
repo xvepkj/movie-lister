@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:movie_lister/models/movie.dart';
 
 class AddMovieForm extends StatefulWidget {
@@ -13,7 +15,9 @@ class _AddMovieFormState extends State<AddMovieForm> {
   final _nameController = TextEditingController();
   final _directorController = TextEditingController();
   final _movieFormKey = GlobalKey<FormState>();
-
+  var _image;
+  var imagePicker;
+  late XFile image;
   late final Box box;
 
   String? _fieldValidator(String? value) {
@@ -28,6 +32,7 @@ class _AddMovieFormState extends State<AddMovieForm> {
     Movie newMovie = Movie(
       name: _nameController.text,
       director: _directorController.text,
+      image: image.path
     );
 
     box.add(newMovie);
@@ -39,6 +44,7 @@ class _AddMovieFormState extends State<AddMovieForm> {
     super.initState();
     // Get reference to an already opened box
     box = Hive.box('movieBox');
+    imagePicker = new ImagePicker();
   }
 
   @override
@@ -60,6 +66,41 @@ class _AddMovieFormState extends State<AddMovieForm> {
             validator: _fieldValidator,
           ),
           Spacer(),
+          Center(
+            child: GestureDetector(
+              onTap: () async {
+                image = await imagePicker.pickImage(
+                    source: ImageSource.gallery, imageQuality: 50);
+                setState(() {
+                  _image = File(image.path);
+                });
+              },
+              child: Container(
+                width: 250,
+                height: 250,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor),
+                child: _image != null
+                    ? Image.file(
+                  _image,
+                  width: 250.0,
+                  height: 250.0,
+                  fit: BoxFit.fitHeight,
+                )
+                    : Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor),
+                  width: 250,
+                  height: 250,
+                  child: Icon(
+                    Icons.camera_alt,
+                    color: Colors.grey[800],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Spacer(),
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 24.0),
             child: Container(
@@ -67,7 +108,7 @@ class _AddMovieFormState extends State<AddMovieForm> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_movieFormKey.currentState!.validate()) {
+                  if (_movieFormKey.currentState!.validate() && _image!=null) {
                     _addInfo();
                     Navigator.of(context).pop();
                   }
