@@ -65,20 +65,58 @@ class _InfoScreenState extends State<InfoScreen> {
                       ),
                     ),
                   ),
-                  child: ListTile(
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                      child: Image.file(File(movieData.image))
-                    ),
-                    title: Text(
-                        movieData.name,
-                        style : TextStyle(fontSize: 21.0)),
-                    subtitle: Text(movieData.director),
-                    trailing: IconButton(
-                      onPressed: () => _deleteInfo(index),
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.red,
+                  child : Container(
+                    width: MediaQuery.of(context).size.width * 0.94,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
+                      color: Colors.white70,
+                      elevation: 10,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: MediaQuery.of(context).size.width * 0.28,
+                                maxHeight: MediaQuery.of(context).size.width * 0.28,
+                              ),
+                              child: Image.file(File(movieData.image)),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                                  child: Text(
+                                    movieData.name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                                  child: Text(
+                                    movieData.director,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
