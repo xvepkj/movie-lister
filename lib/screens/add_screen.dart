@@ -12,7 +12,7 @@ class _AddScreenState extends State<AddScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Add Info'),
+        title: Text('Add Movie'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

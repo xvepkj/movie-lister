@@ -57,22 +57,14 @@ class _InfoScreenState extends State<InfoScreen> {
                 var movieData = currentBox.getAt(index)!;
 
                 return InkWell(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => UpdateScreen(
-                        index: index,
-                        movie: movieData,
-                      ),
-                    ),
-                  ),
                   child : Container(
                     width: MediaQuery.of(context).size.width * 0.94,
                     child: Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(1.0),
                       ),
-                      color: Colors.white70,
-                      elevation: 10,
+                      color: Colors.white,
+                      elevation: 20,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -80,7 +72,7 @@ class _InfoScreenState extends State<InfoScreen> {
                             padding: const EdgeInsets.all(2.0),
                             child: ConstrainedBox(
                               constraints: BoxConstraints(
-                                maxWidth: MediaQuery.of(context).size.width * 0.28,
+                                maxWidth: MediaQuery.of(context).size.width * 0.185,
                                 maxHeight: MediaQuery.of(context).size.width * 0.28,
                               ),
                               child: Image.file(File(movieData.image)),
@@ -115,6 +107,31 @@ class _InfoScreenState extends State<InfoScreen> {
                                 ),
                               ),
                             ],
+                          ),
+                          Container(child: IconButton(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => UpdateScreen(
+                                  index: index,
+                                  movie: movieData,
+                                ),
+                              ),
+                            ),
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.black,
+                            ),
+                          ),
+                          ),
+                          Container(child: IconButton(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            onPressed: () => _deleteInfo(index),
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.black,
+                            ),
+                          ),
                           ),
                         ],
                       ),

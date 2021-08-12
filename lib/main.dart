@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Movie Lister',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primaryColor: Colors.grey,
+        primarySwatch: Colors.grey
       ),
       debugShowCheckedModeBanner: false,
       home: InfoScreen(),
