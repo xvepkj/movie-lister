@@ -32,7 +32,7 @@ class _InfoScreenState extends State<InfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Movie Info'),
+        title: Text('My Movie List'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).push(
@@ -47,7 +47,7 @@ class _InfoScreenState extends State<InfoScreen> {
         builder: (context, Box box, widget) {
           if (box.isEmpty) {
             return Center(
-              child: Text('Empty'),
+              child: Text('Add your Watched Movies!'),
             );
           } else {
             return ListView.builder(
@@ -70,7 +70,9 @@ class _InfoScreenState extends State<InfoScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(4.0)),
                       child: Image.file(File(movieData.image))
                     ),
-                    title: Text(movieData.name),
+                    title: Text(
+                        movieData.name,
+                        style : TextStyle(fontSize: 21.0)),
                     subtitle: Text(movieData.director),
                     trailing: IconButton(
                       onPressed: () => _deleteInfo(index),

@@ -73,7 +73,7 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
             validator: _fieldValidator,
           ),
           SizedBox(height: 24.0),
-          Text('Home Country'),
+          Text('Director'),
           TextFormField(
             controller: _directorController,
             validator: _fieldValidator,
@@ -90,21 +90,21 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
                 });
               },
               child: Container(
-                width: 250,
+                width: 168,
                 height: 250,
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor),
                 child: _image != null
                     ? Image.file(
                   _image,
-                  width: 250.0,
+                  width: 168.0,
                   height: 250.0,
                   fit: BoxFit.fitHeight,
                 )
                     : Container(
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor),
-                  width: 250,
+                  width: 168,
                   height: 250,
                   child: Icon(
                     Icons.camera_alt,

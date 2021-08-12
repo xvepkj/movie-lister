@@ -76,21 +76,21 @@ class _AddMovieFormState extends State<AddMovieForm> {
                 });
               },
               child: Container(
-                width: 250,
+                width: 168,
                 height: 250,
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor),
                 child: _image != null
                     ? Image.file(
                   _image,
-                  width: 250.0,
+                  width: 168.0,
                   height: 250.0,
                   fit: BoxFit.fitHeight,
                 )
                     : Container(
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor),
-                  width: 250,
+                  width: 168,
                   height: 250,
                   child: Icon(
                     Icons.camera_alt,
