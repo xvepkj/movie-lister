@@ -38,7 +38,7 @@ class _InfoScreenState extends State<InfoScreen> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("AlertDialog"),
+      title: Text("Delete Movie"),
       content: Text("Are you sure you want to delete this movie?"),
       actions: [
         continueButton,
