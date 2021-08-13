@@ -20,7 +20,41 @@ class _InfoScreenState extends State<InfoScreen> {
 
     print('Item deleted from box at index: $index');
   }
+  showAlertDialog(BuildContext context, int index) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Yes"),
+      onPressed:  () {
+        _deleteInfo(index);
+        Navigator.of(context).pop(); // dismiss dialog
+      },
+    );
 
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("AlertDialog"),
+      content: Text("Are you sure you want to delete this movie?"),
+      actions: [
+        continueButton,
+        cancelButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+  
   @override
   void initState() {
     super.initState();
@@ -126,7 +160,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           ),
                           Container(child: IconButton(
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                            onPressed: () => _deleteInfo(index),
+                            onPressed: () => showAlertDialog(context, index),
                             icon: Icon(
                               Icons.delete,
                               color: Colors.black,
