@@ -135,7 +135,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                   child: Text(
                                     movieData.director,
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ),
